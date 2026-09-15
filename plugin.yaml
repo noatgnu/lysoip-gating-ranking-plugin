@@ -1,0 +1,129 @@
+plugin:
+  id: "lysoip-gating-ranking"
+  name: "Lyso-IP Gating & Ranking"
+  description: "Classifies proteins as Positive/Negative/Nonsignificant on hard significance gates, then z-score composite-ranks each gated pool"
+  version: "1.0.0"
+  author: "CauldronGO Team"
+  category: "lysoip-qc"
+  icon: "leaderboard"
+  repository: "https://github.com/noatgnu/lysoip-gating-ranking-plugin"
+
+runtime:
+  environments: ["python"]
+  entrypoint: "lysoip_gating_ranking.py"
+
+diagram:
+  enabled: true
+
+inputs:
+  - name: "differential_expression_file"
+    label: "Differential Expression"
+    type: "file"
+    required: true
+    accept: ".tsv,.txt"
+    description: "differential_expression.tsv from the Lyso-IP Differential Expression plugin (carries fold_change and significance)"
+
+  - name: "reproducibility_file"
+    label: "Reproducibility Scores"
+    type: "file"
+    required: false
+    accept: ".tsv,.txt"
+    description: "reproducibility.tsv from the Lyso-IP Reproducibility plugin"
+
+  - name: "organelle_specificity_file"
+    label: "Organelle Specificity Scores"
+    type: "file"
+    required: false
+    accept: ".tsv,.txt"
+    description: "organelle_specificity.tsv from the Lyso-IP Organelle Specificity plugin"
+
+  - name: "go_evidence_file"
+    label: "GO Evidence Scores"
+    type: "file"
+    required: false
+    accept: ".tsv,.txt"
+    description: "go_evidence.tsv from the Lyso-IP GO Evidence plugin"
+
+  - name: "fold_change_min_abs_log2"
+    label: "Minimum |log2 Fold Change|"
+    type: "number"
+    required: false
+    default: 0.585
+    min: 0
+    step: 0.01
+    description: "A protein must clear this magnitude to gate as Positive/Negative"
+
+  - name: "significance_alpha"
+    label: "Significance Alpha"
+    type: "number"
+    required: false
+    default: 0.05
+    min: 0
+    max: 1
+    step: 0.01
+    description: "A protein must clear this adjusted p-value to gate as Positive/Negative"
+
+  - name: "weight_fold_change"
+    label: "Fold Change Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
+  - name: "weight_reproducibility"
+    label: "Reproducibility Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
+  - name: "weight_organelle_specificity"
+    label: "Organelle Specificity Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
+  - name: "weight_go_evidence"
+    label: "GO Evidence Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
+outputs:
+  - name: "verdict"
+    path: "verdict.tsv"
+    type: "data"
+    description: "Per-protein classification (Positive/Negative/Nonsignificant) and composite ranking value within its gated pool"
+    format: "tsv"
+
+execution:
+  argsMapping:
+    differential_expression_file: "--differential_expression_file"
+    reproducibility_file: "--reproducibility_file"
+    organelle_specificity_file: "--organelle_specificity_file"
+    go_evidence_file: "--go_evidence_file"
+    fold_change_min_abs_log2: "--fold_change_min_abs_log2"
+    significance_alpha: "--significance_alpha"
+    weight_fold_change: "--weight_fold_change"
+    weight_reproducibility: "--weight_reproducibility"
+    weight_organelle_specificity: "--weight_organelle_specificity"
+    weight_go_evidence: "--weight_go_evidence"
+
+  outputDir: "--output_folder"
+
+  requirements:
+    python: ">=3.11"
+    packages:
+      - "pandas>=2.0.0"
+
+example:
+  enabled: true
+  values:
+    differential_expression_file: "examples/differential_expression.tsv"
+    reproducibility_file: "examples/reproducibility.tsv"
