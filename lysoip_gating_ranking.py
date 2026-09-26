@@ -37,12 +37,16 @@ def main():
     parser.add_argument("--reproducibility_file", default=None)
     parser.add_argument("--organelle_specificity_file", default=None)
     parser.add_argument("--go_evidence_file", default=None)
+    parser.add_argument("--compass_file", default=None)
+    parser.add_argument("--crapome_file", default=None)
     parser.add_argument("--fold_change_min_abs_log2", type=float, default=0.585)
     parser.add_argument("--significance_alpha", type=float, default=0.05)
     parser.add_argument("--weight_fold_change", type=float, default=1.0)
     parser.add_argument("--weight_reproducibility", type=float, default=1.0)
     parser.add_argument("--weight_organelle_specificity", type=float, default=1.0)
     parser.add_argument("--weight_go_evidence", type=float, default=1.0)
+    parser.add_argument("--weight_compass", type=float, default=1.0)
+    parser.add_argument("--weight_crapome", type=float, default=1.0)
     parser.add_argument("--output_folder", required=True)
     args = parser.parse_args()
 
@@ -57,20 +61,28 @@ def main():
     reproducibility, repro_genes = read_metric_column(args.reproducibility_file, "reproducibility", "reproducibility")
     organelle_specificity, organelle_genes = read_metric_column(args.organelle_specificity_file, "organelle_specificity", "organelle_specificity")
     go_evidence, go_genes = read_metric_column(args.go_evidence_file, "go_evidence", "go_evidence")
+    compass, compass_genes = read_metric_column(args.compass_file, "compass", "compass")
+    crapome, crapome_genes = read_metric_column(args.crapome_file, "crapome", "crapome")
     gene_lookup.update(repro_genes)
     gene_lookup.update(organelle_genes)
     gene_lookup.update(go_genes)
+    gene_lookup.update(compass_genes)
+    gene_lookup.update(crapome_genes)
 
     metric_columns = {
         "fold_change": fold_change,
         "reproducibility": reproducibility,
         "organelle_specificity": organelle_specificity,
         "go_evidence": go_evidence,
+        "compass": compass,
+        "crapome": crapome,
     }
     weights = {
         "fold_change": args.weight_fold_change,
         "reproducibility": args.weight_reproducibility,
         "organelle_specificity": args.weight_organelle_specificity,
+        "compass": args.weight_compass,
+        "crapome": args.weight_crapome,
         "go_evidence": args.weight_go_evidence,
     }
 
