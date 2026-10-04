@@ -44,6 +44,20 @@ inputs:
     accept: ".tsv,.txt"
     description: "go_evidence.tsv from the Lyso-IP GO Evidence plugin"
 
+  - name: "compass_file"
+    label: "CompPASS Scores"
+    type: "file"
+    required: false
+    accept: ".tsv,.txt"
+    description: "A TSV with protein, gene, compass columns (CompPASS WD-score)"
+
+  - name: "crapome_file"
+    label: "CRAPome/SAINT Scores"
+    type: "file"
+    required: false
+    accept: ".tsv,.txt"
+    description: "A TSV with protein, gene, crapome columns (SAINT interaction probability)"
+
   - name: "fold_change_min_abs_log2"
     label: "Minimum |log2 Fold Change|"
     type: "number"
@@ -95,6 +109,22 @@ inputs:
     min: 0
     step: 0.1
 
+  - name: "weight_compass"
+    label: "CompPASS Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
+  - name: "weight_crapome"
+    label: "CRAPome/SAINT Weight"
+    type: "number"
+    required: false
+    default: 1.0
+    min: 0
+    step: 0.1
+
 outputs:
   - name: "verdict"
     path: "verdict.tsv"
@@ -108,12 +138,16 @@ execution:
     reproducibility_file: "--reproducibility_file"
     organelle_specificity_file: "--organelle_specificity_file"
     go_evidence_file: "--go_evidence_file"
+    compass_file: "--compass_file"
+    crapome_file: "--crapome_file"
     fold_change_min_abs_log2: "--fold_change_min_abs_log2"
     significance_alpha: "--significance_alpha"
     weight_fold_change: "--weight_fold_change"
     weight_reproducibility: "--weight_reproducibility"
     weight_organelle_specificity: "--weight_organelle_specificity"
     weight_go_evidence: "--weight_go_evidence"
+    weight_compass: "--weight_compass"
+    weight_crapome: "--weight_crapome"
 
   outputDir: "--output_folder"
 
@@ -127,3 +161,7 @@ example:
   values:
     differential_expression_file: "examples/differential_expression.tsv"
     reproducibility_file: "examples/reproducibility.tsv"
+    organelle_specificity_file: "examples/organelle_specificity.tsv"
+    go_evidence_file: "examples/go_evidence.tsv"
+    compass_file: "examples/compass.tsv"
+    crapome_file: "examples/crapome.tsv"

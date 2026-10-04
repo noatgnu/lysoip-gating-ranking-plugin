@@ -55,12 +55,16 @@ flowchart TD
 | `reproducibility_file` | Reproducibility Scores | file | No | - | Always visible |
 | `organelle_specificity_file` | Organelle Specificity Scores | file | No | - | Always visible |
 | `go_evidence_file` | GO Evidence Scores | file | No | - | Always visible |
-| `fold_change_min_abs_log2` | Minimum |log2 Fold Change| | number (min: 0, step: 0) | No | 0.585 | Always visible |
-| `significance_alpha` | Significance Alpha | number (min: 0, max: 1, step: 0) | No | 0.05 | Always visible |
-| `weight_fold_change` | Fold Change Weight | number (min: 0, step: 0) | No | 1 | Always visible |
-| `weight_reproducibility` | Reproducibility Weight | number (min: 0, step: 0) | No | 1 | Always visible |
-| `weight_organelle_specificity` | Organelle Specificity Weight | number (min: 0, step: 0) | No | 1 | Always visible |
-| `weight_go_evidence` | GO Evidence Weight | number (min: 0, step: 0) | No | 1 | Always visible |
+| `compass_file` | CompPASS Scores | file | No | - | Always visible |
+| `crapome_file` | CRAPome/SAINT Scores | file | No | - | Always visible |
+| `fold_change_min_abs_log2` | Minimum |log2 Fold Change| | number (min: 0, step: 0.01) | No | 0.585 | Always visible |
+| `significance_alpha` | Significance Alpha | number (min: 0, max: 1, step: 0.01) | No | 0.05 | Always visible |
+| `weight_fold_change` | Fold Change Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
+| `weight_reproducibility` | Reproducibility Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
+| `weight_organelle_specificity` | Organelle Specificity Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
+| `weight_go_evidence` | GO Evidence Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
+| `weight_compass` | CompPASS Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
+| `weight_crapome` | CRAPome/SAINT Weight | number (min: 0, step: 0.1) | No | 1 | Always visible |
 
 ### Input Details
 
@@ -84,6 +88,16 @@ organelle_specificity.tsv from the Lyso-IP Organelle Specificity plugin
 go_evidence.tsv from the Lyso-IP GO Evidence plugin
 
 
+#### CompPASS Scores (`compass_file`)
+
+A TSV with protein, gene, compass columns (CompPASS WD-score)
+
+
+#### CRAPome/SAINT Scores (`crapome_file`)
+
+A TSV with protein, gene, crapome columns (SAINT interaction probability)
+
+
 #### Minimum |log2 Fold Change| (`fold_change_min_abs_log2`)
 
 A protein must clear this magnitude to gate as Positive/Negative
@@ -104,6 +118,12 @@ A protein must clear this adjusted p-value to gate as Positive/Negative
 
 
 #### GO Evidence Weight (`weight_go_evidence`)
+
+
+#### CompPASS Weight (`weight_compass`)
+
+
+#### CRAPome/SAINT Weight (`weight_crapome`)
 
 
 ## Outputs
@@ -129,8 +149,12 @@ Packages are defined inline in the plugin configuration:
 This plugin includes example data for testing:
 
 ```yaml
+  go_evidence_file: examples/go_evidence.tsv
+  compass_file: examples/compass.tsv
+  crapome_file: examples/crapome.tsv
   differential_expression_file: examples/differential_expression.tsv
   reproducibility_file: examples/reproducibility.tsv
+  organelle_specificity_file: examples/organelle_specificity.tsv
 ```
 
 Load example data by clicking the **Load Example** button in the UI.

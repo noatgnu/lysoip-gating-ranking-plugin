@@ -196,17 +196,33 @@
 <td>Always visible</td>
 </tr>
 <tr>
+<td><code>compass_file</code></td>
+<td>CompPASS Scores</td>
+<td>file</td>
+<td>No</td>
+<td>-</td>
+<td>Always visible</td>
+</tr>
+<tr>
+<td><code>crapome_file</code></td>
+<td>CRAPome/SAINT Scores</td>
+<td>file</td>
+<td>No</td>
+<td>-</td>
+<td>Always visible</td>
+</tr>
+<tr>
 <td><code>fold_change_min_abs_log2</code></td>
 <td>Minimum</td>
 <td>log2 Fold Change</td>
 <td></td>
-<td>number (min: 0, step: 0)</td>
+<td>number (min: 0, step: 0.01)</td>
 <td>No</td>
 </tr>
 <tr>
 <td><code>significance_alpha</code></td>
 <td>Significance Alpha</td>
-<td>number (min: 0, max: 1, step: 0)</td>
+<td>number (min: 0, max: 1, step: 0.01)</td>
 <td>No</td>
 <td>0.05</td>
 <td>Always visible</td>
@@ -214,7 +230,7 @@
 <tr>
 <td><code>weight_fold_change</code></td>
 <td>Fold Change Weight</td>
-<td>number (min: 0, step: 0)</td>
+<td>number (min: 0, step: 0.1)</td>
 <td>No</td>
 <td>1</td>
 <td>Always visible</td>
@@ -222,7 +238,7 @@
 <tr>
 <td><code>weight_reproducibility</code></td>
 <td>Reproducibility Weight</td>
-<td>number (min: 0, step: 0)</td>
+<td>number (min: 0, step: 0.1)</td>
 <td>No</td>
 <td>1</td>
 <td>Always visible</td>
@@ -230,7 +246,7 @@
 <tr>
 <td><code>weight_organelle_specificity</code></td>
 <td>Organelle Specificity Weight</td>
-<td>number (min: 0, step: 0)</td>
+<td>number (min: 0, step: 0.1)</td>
 <td>No</td>
 <td>1</td>
 <td>Always visible</td>
@@ -238,7 +254,23 @@
 <tr>
 <td><code>weight_go_evidence</code></td>
 <td>GO Evidence Weight</td>
-<td>number (min: 0, step: 0)</td>
+<td>number (min: 0, step: 0.1)</td>
+<td>No</td>
+<td>1</td>
+<td>Always visible</td>
+</tr>
+<tr>
+<td><code>weight_compass</code></td>
+<td>CompPASS Weight</td>
+<td>number (min: 0, step: 0.1)</td>
+<td>No</td>
+<td>1</td>
+<td>Always visible</td>
+</tr>
+<tr>
+<td><code>weight_crapome</code></td>
+<td>CRAPome/SAINT Weight</td>
+<td>number (min: 0, step: 0.1)</td>
 <td>No</td>
 <td>1</td>
 <td>Always visible</td>
@@ -254,6 +286,10 @@
 <p>organelle_specificity.tsv from the Lyso-IP Organelle Specificity plugin</p>
 <h4 id="go-evidence-scores-go-evidence-file">GO Evidence Scores (<code>go_evidence_file</code>)</h4>
 <p>go_evidence.tsv from the Lyso-IP GO Evidence plugin</p>
+<h4 id="comppass-scores-compass-file">CompPASS Scores (<code>compass_file</code>)</h4>
+<p>A TSV with protein, gene, compass columns (CompPASS WD-score)</p>
+<h4 id="crapomesaint-scores-crapome-file">CRAPome/SAINT Scores (<code>crapome_file</code>)</h4>
+<p>A TSV with protein, gene, crapome columns (SAINT interaction probability)</p>
 <h4 id="minimum-log2-fold-change-fold-change-min-abs-log2">Minimum |log2 Fold Change| (<code>fold_change_min_abs_log2</code>)</h4>
 <p>A protein must clear this magnitude to gate as Positive/Negative</p>
 <h4 id="significance-alpha-significance-alpha">Significance Alpha (<code>significance_alpha</code>)</h4>
@@ -262,6 +298,8 @@
 <h4 id="reproducibility-weight-weight-reproducibility">Reproducibility Weight (<code>weight_reproducibility</code>)</h4>
 <h4 id="organelle-specificity-weight-weight-organelle-specificity">Organelle Specificity Weight (<code>weight_organelle_specificity</code>)</h4>
 <h4 id="go-evidence-weight-weight-go-evidence">GO Evidence Weight (<code>weight_go_evidence</code>)</h4>
+<h4 id="comppass-weight-weight-compass">CompPASS Weight (<code>weight_compass</code>)</h4>
+<h4 id="crapomesaint-weight-weight-crapome">CRAPome/SAINT Weight (<code>weight_crapome</code>)</h4>
 <h2 id="outputs">Outputs</h2>
 <table>
 <thead>
@@ -297,7 +335,11 @@
 </blockquote>
 <h2 id="example-data">Example Data</h2>
 <p>This plugin includes example data for testing:</p>
-<pre><code class="language-yaml">  differential_expression_file: examples/differential_expression.tsv
+<pre><code class="language-yaml">  organelle_specificity_file: examples/organelle_specificity.tsv
+  go_evidence_file: examples/go_evidence.tsv
+  compass_file: examples/compass.tsv
+  crapome_file: examples/crapome.tsv
+  differential_expression_file: examples/differential_expression.tsv
   reproducibility_file: examples/reproducibility.tsv
 </code></pre>
 <p>Load example data by clicking the <strong>Load Example</strong> button in the UI.</p>

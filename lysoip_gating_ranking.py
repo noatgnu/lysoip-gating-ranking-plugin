@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""Lyso-IP QC gating + composite ranking: Positive/Negative/Nonsignificant
-classification from hard statistical gates, then a z-scored weighted
-composite rank within each gated pool.
-
-Ported from lysoip_qc_framework/apps/aggregation/gating.py,
-apps/aggregation/aggregators/base.py, and
-apps/aggregation/aggregators/weighted_composite.py.
-"""
+"""Gates proteins on hard statistics, then z-scored weighted composite-ranks each gated pool."""
 
 import argparse
 import csv
