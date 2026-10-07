@@ -1,0 +1,8 @@
+{
+  "differential_expression_file": "examples/differential_expression.tsv",
+  "reproducibility_file": "examples/reproducibility.tsv",
+  "organelle_specificity_file": "examples/organelle_specificity.tsv",
+  "go_evidence_file": "examples/go_evidence.tsv",
+  "compass_file": "examples/compass.tsv",
+  "crapome_file": "examples/crapome.tsv"
+}
